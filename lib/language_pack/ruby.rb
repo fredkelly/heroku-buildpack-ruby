@@ -45,6 +45,11 @@ class LanguagePack::Ruby < LanguagePack::Base
       "console" => "bundle exec irb"
     }
   end
+  
+  # get SHA for current commit
+  def get_SHA
+    ENV['SHA'] ||= %x(git rev-parse HEAD).chomp
+  end
 
   def compile
     Dir.chdir(build_path)
@@ -59,6 +64,7 @@ class LanguagePack::Ruby < LanguagePack::Base
       create_database_yml
       install_binaries
       run_assets_precompile_rake_task
+      get_SHA
     end
   end
 
