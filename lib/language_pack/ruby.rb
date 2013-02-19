@@ -412,6 +412,7 @@ ERROR
       if $?.success?
         log "bundle", :status => "success"
         puts "Cleaning up the bundler cache."
+        pipe "bundle config --delete dry_run"
         pipe "bundle clean"
         cache_store ".bundle"
         cache_store "vendor/bundle"
